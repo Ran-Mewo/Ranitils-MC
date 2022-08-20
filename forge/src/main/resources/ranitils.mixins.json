@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "io.github.ran.minecraft.ranitils.forge.mixins",
+  "compatibilityLevel": "JAVA_${javaVersion}",
+  "client": [
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

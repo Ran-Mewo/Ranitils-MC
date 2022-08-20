@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "io.github.ran.minecraft.ranitils.fabric.mixins",
+  "compatibilityLevel": "JAVA_${javaVersion}",
+  "client": [
+    "waypoints.ChatParserMixin",
+    "waypoints.WaypointRendererMixin",
+    "waypoints.TextComponentAccessorMixin",
+    "waypoints.TranslatableComponentAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

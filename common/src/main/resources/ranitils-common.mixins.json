@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "io.github.ran.minecraft.ranitils.mixins",
+  "compatibilityLevel": "JAVA_${javaVersion}",
+  "client": [
+    "anyArmor.ArmorSlotClickMixin",
+    "autoSwitchElytra.RecastElytraMixin",
+    "bowInstantKill.ReleaseBowMixin",
+    "elytraRecast.BouncyBoiMixin",
+    "mineFree.MineFreeMixin",
+    "roadrunner.FlatDigMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

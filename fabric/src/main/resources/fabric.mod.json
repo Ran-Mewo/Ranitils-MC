@@ -15,16 +15,16 @@
   "icon": "assets/${id}/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+    "client": [
+      "io.github.ran.minecraft.ranitils.fabric.RanitilsMCFabric"
     ],
     "preLaunch": [
-      "net.examplemod.fabric.PreLaunchSetup"
+      "io.github.ran.minecraft.ranitils.fabric.PreLaunchSetup"
     ]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "ranitils.mixins.json",
+    "ranitils-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",
