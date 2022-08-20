@@ -43,10 +43,22 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
             return;
         }
         ItemStack chestItemStack = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (chestItemStack.is(Items.ELYTRA) || !AutoSwitchElytra.myCheckFallFlying(this)) {
+        if (
+            #if POST_MC_1_16_5
+            chestItemStack.is(Items.ELYTRA)
+            #else
+            chestItemStack.getItem().equals(Items.ELYTRA)
+            #endif
+            || !AutoSwitchElytra.myCheckFallFlying(this)) {
             return;
         }
-        AutoSwitchElytra.autoSwitch(AutoSwitchElytra.CHEST_SLOT_IDX, this.minecraft, (LocalPlayer) (Object) this, itemStack -> itemStack.is(Items.ELYTRA));
+        AutoSwitchElytra.autoSwitch(AutoSwitchElytra.CHEST_SLOT_IDX, this.minecraft, (LocalPlayer) (Object) this, itemStack ->
+            #if POST_MC_1_16_5
+            itemStack.is(Items.ELYTRA)
+            #else
+            itemStack.getItem().equals(Items.ELYTRA)
+            #endif
+        );
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -56,7 +68,13 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
             return;
         }
         ItemStack chestItemStack = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (!chestItemStack.is(Items.ELYTRA) || !prevFallFlying || this.isFallFlying()) {
+        if (
+            #if POST_MC_1_16_5
+            !chestItemStack.is(Items.ELYTRA)
+            #else
+            !chestItemStack.getItem().equals(Items.ELYTRA)
+            #endif
+            || !prevFallFlying || this.isFallFlying()) {
             prevFallFlying = this.isFallFlying();
             return;
         }

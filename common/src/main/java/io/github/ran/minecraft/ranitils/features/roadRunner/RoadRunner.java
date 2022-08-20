@@ -14,7 +14,12 @@ public class RoadRunner {
         Player player = Minecraft.getInstance().player;
         if (player != null && level != null) {
             if (player.isShiftKeyDown()) return false;
-            return blockPos.getY() < player.getBlockY();
+            return blockPos.getY() <
+                    #if POST_MC_1_16_5
+                    player.getBlockY();
+                    #else
+                    player.blockPosition().getY();
+                    #endif
         }
         return false;
     }

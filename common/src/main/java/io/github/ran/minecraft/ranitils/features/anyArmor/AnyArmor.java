@@ -26,7 +26,11 @@ public class AnyArmor {
 //    }
 
     public static void putArmor(int armorSlot) {
+        #if POST_MC_1_16_5
         putArmor(36 + Minecraft.getInstance().player.getInventory().selected, armorSlot);
+        #else
+        putArmor(36 + Minecraft.getInstance().player.inventory.selected, armorSlot);
+        #endif
     }
 
     public static void putArmor(int slot, int armorSlot) {
