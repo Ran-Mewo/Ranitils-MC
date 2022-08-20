@@ -256,7 +256,7 @@ public class Waypoint implements Eventerface {
             for (int i = 0; i < texts.size(); ++i) {
                 chat.getSiblings().add(i, texts.get(i));
             }
-            ((TextComponentAccessorMixin) literalChatText).setText("");
+            ((TextComponentAccessorMixin) (Object) literalChatText).setText("");
             ((MutableComponent) chat).withStyle(Style.EMPTY);
             return true;
         }
