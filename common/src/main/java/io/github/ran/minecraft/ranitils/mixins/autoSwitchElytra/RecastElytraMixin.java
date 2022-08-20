@@ -29,7 +29,11 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
     boolean prevFallFlying = false;
 
     public RecastElytraMixin(ClientLevel world, GameProfile profile) {
+        #if POST_MC_1_18_2
         super(world, profile, null);
+        #else
+        super(world, profile);
+        #endif
     }
 
     @SuppressWarnings("ConstantConditions")

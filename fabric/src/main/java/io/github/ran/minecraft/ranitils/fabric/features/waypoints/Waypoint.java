@@ -10,8 +10,10 @@ import io.github.ran.minecraft.ranitils.config.ModConfig;
 import io.github.ran.minecraft.ranitils.interfaces.Eventerface;
 import io.github.ran.minecraft.ranitils.fabric.mixins.waypoints.TextComponentAccessorMixin;
 import io.github.ran.minecraft.ranitils.fabric.mixins.waypoints.TranslatableComponentAccessor;
+#if POST_MC_1_18_2
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+#endif
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -24,8 +26,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.*;
+#if POST_MC_1_18_2
 import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
+#endif
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Tuple;
@@ -130,6 +134,7 @@ public class Waypoint implements Eventerface {
             }
         }
 
+        #if POST_MC_1_18_2
         ComponentContents componentContents = chat.getContents();
         if (componentContents instanceof TranslatableContents) {
             Object[] args = ((TranslatableContents) componentContents).getArgs();
@@ -150,17 +155,48 @@ public class Waypoint implements Eventerface {
                 ((TranslatableComponentAccessor) componentContents).setDecomposedWith(null);
             }
         }
+        #else
+        if (chat instanceof TranslatableComponent) {
+            Object[] args = ((TranslatableComponent) chat).getArgs();
+            boolean updateTranslatableText = false;
+            for (int i = 0; i < args.length; ++i) {
+                if (args[i] instanceof Component) {
+                    parseWaypointText((Component) args[i]);
+                } else if (args[i] instanceof String) {
+                    Component text = new TextComponent((String) args[i]);
+                    if (updateWaypointsText(text)) {
+                        args[i] = text;
+                        updateTranslatableText = true;
+                    }
+                }
+            }
+            if (updateTranslatableText) {
+                // refresh cache
+                ((TranslatableComponentAccessor) chat).setDecomposedWith(null);
+            }
+        }
+        #endif
         updateWaypointsText(chat);
     }
 
 
     public static boolean updateWaypointsText(Component chat) {
+        #if POST_MC_1_18_2
         ComponentContents componentContents = chat.getContents();
         if (!(componentContents instanceof LiteralContents literalChatText)) {
             return false;
         }
+        #else
+        if (!(chat instanceof TextComponent literalChatText)) {
+            return false;
+        }
+        #endif
 
+        #if POST_MC_1_18_2
         String message = ((TextComponentAccessorMixin) (Object) literalChatText).getText();
+        #else
+        String message = literalChatText.getText();
+        #endif
         ArrayList<Tuple<Integer, String>> waypointPairs = getWaypointStrings(message);
         if (waypointPairs.size() > 0) {
             Style style = chat.getStyle();
@@ -176,14 +212,29 @@ public class Waypoint implements Eventerface {
             for (Tuple<Integer, String> waypointPair : waypointPairs) {
                 String waypointString = waypointPair.getB();
                 int waypointIdx = waypointPair.getA();
-                Component prevText = Component.literal(message.substring(prevIdx, waypointIdx)).withStyle(style);
+                Component prevText =
+                        #if POST_MC_1_18_2
+                        Component.literal(message.substring(prevIdx, waypointIdx)).withStyle(style);
+                        #else
+                        new TextComponent(message.substring(prevIdx, waypointIdx)).setStyle(style);
+                        #endif
                 texts.add(prevText);
 
-                MutableComponent clickableWaypoint = Component.literal(waypointString);
+                MutableComponent clickableWaypoint =
+                        #if POST_MC_1_18_2
+                        Component.literal(waypointString);
+                        #else
+                        new TextComponent(waypointString);
+                        #endif
 
                 Style chatStyle = clickableWaypoint.getStyle();
                 BlockPos pos = parseWaypoint(waypointString.substring(1, waypointString.length() - 1));
-                Component hover = Component.literal("Click to add waypoint");
+                Component hover =
+                        #if POST_MC_1_18_2
+                        Component.literal("Click to add waypoint");
+                        #else
+                        new TextComponent("Click to add waypoint");
+                        #endif
                 if (clickEvent == null) {
                     clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND,
                             String.format("/addWaypoint %d %d %d", pos.getX(), pos.getY(), pos.getZ()));
@@ -194,13 +245,18 @@ public class Waypoint implements Eventerface {
                 prevIdx = waypointIdx + waypointString.length();
             }
             if (prevIdx < message.length() - 1) {
-                Component lastText = Component.literal(message.substring(prevIdx)).withStyle(style);
+                Component lastText =
+                        #if POST_MC_1_18_2
+                        Component.literal(message.substring(prevIdx)).withStyle(style);
+                        #else
+                        new TextComponent(message.substring(prevIdx)).setStyle(style);
+                        #endif
                 texts.add(lastText);
             }
             for (int i = 0; i < texts.size(); ++i) {
                 chat.getSiblings().add(i, texts.get(i));
             }
-            ((TextComponentAccessorMixin) (Object) literalChatText).setText("");
+            ((TextComponentAccessorMixin) literalChatText).setText("");
             ((MutableComponent) chat).withStyle(Style.EMPTY);
             return true;
         }
@@ -228,6 +284,7 @@ public class Waypoint implements Eventerface {
     public static void register() {
         WaypointResourceLoader.register();
 
+        #if POST_MC_1_18_2
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) ->
                 dispatcher.register(ClientCommandManager.literal("removeWaypoint").then(
                         ClientCommandManager.argument("x", integer()).then(
@@ -258,6 +315,7 @@ public class Waypoint implements Eventerface {
                                 )
                         )
                 )));
+        #endif
     }
 
     public void tick(Minecraft mc) {
@@ -265,7 +323,11 @@ public class Waypoint implements Eventerface {
             removeKeyPressed = true;
             removeAll();
             if (mc.player != null) {
+                #if POST_MC_1_18_2
                 mc.player.sendSystemMessage(Component.literal("[Ranitils] Removed all waypoints").withStyle(ChatFormatting.GRAY));
+                #else
+                mc.player.sendMessage(new TextComponent("[Ranitils] Removed all waypoints"), mc.player.getUUID());
+                #endif
             }
         } else if (removeKeyPressed && !removeKey.isDown()) {
             removeKeyPressed = false;
@@ -383,7 +445,12 @@ public class Waypoint implements Eventerface {
                     double distance = waypoint.getDistanceToEntity(camera, blockPos);
                     double distanceNoY = waypoint.getDistanceToEntityNoY(camera, blockPos);
 
-                    double maxDistance = mc.options.renderDistance().get();
+                    double maxDistance =
+                            #if POST_MC_1_18_2
+                            mc.options.renderDistance().get();
+                            #else
+                            mc.options.renderDistance;
+                            #endif
                     boolean shouldScaleX = ((int) distanceNoY - ((int) maxDistance * 8)) > -60;
 
                     waypoint.render(mc, blockPos, poseStack, distance, shouldScaleX, distanceNoY, waypoint.isPointedAt(blockPos, distanceNoY, shouldScaleX, camera, partialTick), partialTick, camera);
@@ -404,7 +471,12 @@ public class Waypoint implements Eventerface {
         double lerpY = blockPos.getY() - Mth.lerp(partialTick, camera.yo, camera.getY()) - 1.5;
         double lerpZ = blockPos.getZ() - Mth.lerp(partialTick, camera.zo, camera.getZ());
 
-        double maxDistance = mc.options.renderDistance().get();
+        double maxDistance =
+                #if POST_MC_1_18_2
+                mc.options.renderDistance().get();
+                #else
+                mc.options.renderDistance;
+                #endif
         double adjustedDistance = distance;
         if (distance > maxDistance) {
             lerpY = lerpY / distance * maxDistance;
@@ -487,7 +559,12 @@ public class Waypoint implements Eventerface {
             int textColor = (int) (255.0f * fade) << 24 | 0xCCCCCC;
             RenderSystem.disableDepthTest();
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(tessellator.getBuilder());
-            fontRenderer.drawInBatch(Component.literal(name), (float) (-fontRenderer.width(name) / 2), (float) elevateBy, textColor, false, matrix4f, bufferSource, true, 0, 0xF000F0);
+            fontRenderer.drawInBatch(
+                    #if POST_MC_1_18_2
+                    Component.literal(name)
+                    #else
+                    new TextComponent(name)
+                    #endif, (float) (-fontRenderer.width(name) / 2), (float) elevateBy, textColor, false, matrix4f, bufferSource, true, 0, 0xF000F0);
             bufferSource.endLastBatch();
             bufferSource.endBatch();
         }

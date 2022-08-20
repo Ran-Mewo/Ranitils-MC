@@ -11,6 +11,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+#if PRE_MC_1_19
+import net.minecraft.network.chat.TextComponent;
+#endif
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,7 +35,13 @@ public class VerticalTP implements Eventerface {
             keyPressed = true;
             ModConfig.getInstance().verticalTP = !ModConfig.getInstance().verticalTP;
             ModConfig.getConfigHolder().save();
-            if (mc.player != null) mc.player.sendSystemMessage(Component.literal("[Ranitils] Vertical TP: " + ModConfig.getInstance().verticalTP).withStyle(ChatFormatting.GRAY));
+            if (mc.player != null) {
+                #if POST_MC_1_18_2
+                mc.player.sendSystemMessage(Component.literal("[Ranitils] Vertical TP: " + ModConfig.getInstance().verticalTP).withStyle(ChatFormatting.GRAY));
+                #else
+                mc.player.sendMessage(new TextComponent("[Ranitils] Vertical TP: " + ModConfig.getInstance().verticalTP).withStyle(ChatFormatting.GRAY), mc.player.getUUID());
+                #endif
+            }
         } else if (keyPressed && !key.isDown()) {
             keyPressed = false;
         }
