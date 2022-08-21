@@ -21,13 +21,11 @@ public class ElytraRecastHelper {
     }
 
     private static boolean isElytra(LocalPlayer player) {
-        if (player.input.jumping && !player
-                #if POST_MC_1_16_5
-                .getAbilities().flying
-                #else
-                .abilities.flying
-                #endif
-                && !player.isVehicle() && !player.onClimbable()) {
+        #if POST_MC_1_16_5
+        if (player.input.jumping && !player.getAbilities().flying && !player.isVehicle() && !player.onClimbable()) {
+        #else
+        if (player.input.jumping && !player.abilities.flying && !player.isVehicle()) {
+        #endif
             ItemStack elytra = player.getItemBySlot(EquipmentSlot.CHEST);
             return elytra.getItem() == Items.ELYTRA && ElytraItem.isFlyEnabled(elytra);
         }
@@ -37,13 +35,11 @@ public class ElytraRecastHelper {
     private static boolean checkFallFlyingIgnoreGround(Player player) {
         if (!player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
             ItemStack elytra = player.getItemBySlot(EquipmentSlot.CHEST);
-            if (
-                #if POST_MC_1_16_5
-                elytra.is(Items.ELYTRA)
-                #else
-                elytra.getItem().equals(Items.ELYTRA)
-                #endif
-                && ElytraItem.isFlyEnabled(elytra)) {
+            #if POST_MC_1_16_5
+            if (elytra.is(Items.ELYTRA) && ElytraItem.isFlyEnabled(elytra)) {
+            #else
+            if (elytra.getItem().equals(Items.ELYTRA) && ElytraItem.isFlyEnabled(elytra)) {
+            #endif
                 player.startFallFlying();
                 return true;
             }

@@ -500,13 +500,11 @@ public class Waypoint implements Eventerface {
         }
 
         poseStack.translate(0.5f, 0.5f, 0.5f);
-        poseStack.mulPose(new Vector3f(0.0F, 1.0F, 0.0F).rotationDegrees(
-                #if POST_MC_1_16_5
-                -camera.getYRot()
-                #else
-                -camera.yRot
-                #endif
-        ));
+        #if POST_MC_1_16_5
+        poseStack.mulPose(new Vector3f(0.0F, 1.0F, 0.0F).rotationDegrees(-camera.getYRot()));
+        #else
+        poseStack.mulPose(new Vector3f(0.0F, 1.0F, 0.0F).rotationDegrees(-camera.yRot));
+        #endif
         poseStack.mulPose(new Vector3f(1.0F, 0.0F, 0.0F).rotationDegrees(mc.getEntityRenderDispatcher().camera.getXRot()));
         poseStack.scale(-scale, -scale, -scale);
 
