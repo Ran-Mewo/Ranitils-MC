@@ -517,11 +517,7 @@ public class Waypoint implements Eventerface {
         }
 
         poseStack.translate(0.5f, 0.5f, 0.5f);
-        #if POST_MC_1_16_5
         poseStack.mulPose(new Vector3f(0.0F, 1.0F, 0.0F).rotationDegrees(-camera.getYRot()));
-        #else
-        poseStack.mulPose(new Vector3f(0.0F, 1.0F, 0.0F).rotationDegrees(-camera.yRot));
-        #endif
         poseStack.mulPose(new Vector3f(1.0F, 0.0F, 0.0F).rotationDegrees(mc.getEntityRenderDispatcher().camera.getXRot()));
         poseStack.scale(-scale, -scale, -scale);
 
@@ -540,19 +536,11 @@ public class Waypoint implements Eventerface {
         float iconB = 1f;
 
         TextureAtlasSprite icon = WaypointResourceLoader.getTargetIdSprite();
-        #if POST_MC_1_16_5
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
-        #else
-        RenderSystem.bindTexture(mc.getTextureManager().getTexture(InventoryMenu.BLOCK_ATLAS).getId());
-        #endif
 
         RenderSystem.enableTexture();
-        #if POST_MC_1_16_5
         vertexBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        #else
-        vertexBuffer.begin(7, DefaultVertexFormat.POSITION_COLOR_TEX);
-        #endif
         vertexBuffer.vertex(matrix4f, -xWidth, -yWidth, 0.0f).uv(icon.getU0(), icon.getV0()).color(iconR, iconG, iconB, fade).endVertex();
         vertexBuffer.vertex(matrix4f, -xWidth, yWidth, 0.0f).uv(icon.getU0(), icon.getV1()).color(iconR, iconG, iconB, fade).endVertex();
         vertexBuffer.vertex(matrix4f, xWidth, yWidth, 0.0f).uv(icon.getU1(), icon.getV1()).color(iconR, iconG, iconB, fade).endVertex();
@@ -565,16 +553,10 @@ public class Waypoint implements Eventerface {
             int elevateBy = -19;
             RenderSystem.enablePolygonOffset();
             int halfStringWidth = fontRenderer.width(name) / 2;
-            #if POST_MC_1_16_5
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            #endif
 
             RenderSystem.polygonOffset(1.0f, 11.0f);
-            #if POST_MC_1_16_5
             vertexBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-            #else
-            vertexBuffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
-            #endif
             vertexBuffer.vertex(matrix4f, -halfStringWidth - 2, -2 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.6f * fade).endVertex();
             vertexBuffer.vertex(matrix4f, -halfStringWidth - 2, 9 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.6f * fade).endVertex();
             vertexBuffer.vertex(matrix4f, halfStringWidth + 2, 9 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.6f * fade).endVertex();
@@ -582,11 +564,7 @@ public class Waypoint implements Eventerface {
             tessellator.end();
 
             RenderSystem.polygonOffset(1.0f, 9.0f);
-            #if POST_MC_1_16_5
             vertexBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-            #else
-            vertexBuffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
-            #endif
             vertexBuffer.vertex(matrix4f, -halfStringWidth - 1, -1 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.15f * fade).endVertex();
             vertexBuffer.vertex(matrix4f, -halfStringWidth - 1, 8 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.15f * fade).endVertex();
             vertexBuffer.vertex(matrix4f, halfStringWidth + 1, 8 + elevateBy, 0.0f).color(0.0f, 0.0f, 0.0f, 0.15f * fade).endVertex();
@@ -604,14 +582,10 @@ public class Waypoint implements Eventerface {
                     #else
                     new TextComponent(name)
                     #endif, (float) (-fontRenderer.width(name) / 2), (float) elevateBy, textColor, false, matrix4f, bufferSource, true, 0, 0xF000F0);
-            #if POST_MC_1_16_5
             bufferSource.endLastBatch();
-            #endif
             bufferSource.endBatch();
         }
-        #if POST_MC_1_16_5
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        #endif
         poseStack.popPose();
         RenderSystem.enableTexture();
     }
