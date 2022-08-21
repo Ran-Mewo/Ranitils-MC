@@ -13,6 +13,8 @@ import io.github.ran.minecraft.ranitils.fabric.mixins.waypoints.TranslatableComp
 #if POST_MC_1_18_2
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+#else
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 #endif
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -315,6 +317,21 @@ public class Waypoint implements Eventerface {
                                 )
                         )
                 )));
+        #else
+        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("addWaypoint").then(
+                ClientCommandManager.argument("x", integer()).then(
+                        ClientCommandManager.argument("y", integer()).then(
+                                ClientCommandManager.argument("z", integer())
+                                        .executes(context -> {
+                                            BlockPos pos = new BlockPos(getInteger(context, "x"), getInteger(context, "y"), getInteger(context, "z"));
+                                            ClientLevel level = Minecraft.getInstance().level;
+                                            if (level != null) new Waypoint(pos, level.dimension());
+
+                                            return Command.SINGLE_SUCCESS;
+                                        })
+                        )
+                )
+        ));
         #endif
     }
 

@@ -3,9 +3,9 @@
   "id": "${id}",
   "version": "${version}",
   "name": "${displayName}",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "A small utility mod for Ran (Not to be confused with Ran's utility library \"Ranitils\")\n\n§6Special thanks to these people:§e\nCodeF53 (For helping me make mod)\nplusls (For creating OMMC)\nLuna (For creating Elytra Recast)§r§7\n",
   "authors": [
-    "Me!"
+    "Ran", "CodeF53"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -20,6 +20,9 @@
     ],
     "preLaunch": [
       "io.github.ran.minecraft.ranitils.fabric.PreLaunchSetup"
+    ],
+    "modmenu": [
+      "io.github.ran.minecraft.ranitils.fabric.config.ModMenuIntegration"
     ]
   },
   "mixins": [
