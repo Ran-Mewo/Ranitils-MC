@@ -64,8 +64,9 @@ public class VerticalTP implements Eventerface {
 
                 BlockState blockState = level.getBlockState(blockPos);
 
-                if (Math.abs(player.getBlockX() - blockPos.getX()) > 2) return;
-                if (Math.abs(player.getBlockZ() - blockPos.getZ()) > 2) return;
+                double horizontalDistance = ModConfig.getInstance().verticalTPHorizontalDistance;
+                if (Math.abs(player.getX() - blockPos.getX()) > horizontalDistance) return;
+                if (Math.abs(player.getZ() - blockPos.getZ()) > horizontalDistance) return;
                 if (Math.abs(player.getBlockY() - blockPos.getY()) < 2) return;
 
                 if (blockState.use(level, player, InteractionHand.MAIN_HAND, blockHitResult) != InteractionResult.PASS) {

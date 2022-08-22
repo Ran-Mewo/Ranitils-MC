@@ -8,6 +8,9 @@
   "key.ranitils.verticaltp": "Toggle VerticalTP",
   "text.autoconfig.ranitils.option.verticalTP": "VerticalTP",
   "text.autoconfig.ranitils.option.verticalTP.@Tooltip": "Allows you to teleport vertically\n\n§7zoop up\n§4Use at your own risk as it can get you banned",
+  "key.ranitils.verticalTPHorizontalDistance": "VerticalTP Horizontal Distance",
+  "text.autoconfig.ranitils.option.verticalTPHorizontalDistance": "VerticalTP Horizontal Distance",
+  "text.autoconfig.ranitils.option.verticalTPHorizontalDistance.@Tooltip": "The distance you can teleport horizontally\n\n§7zweep up",
 
   "text.autoconfig.ranitils.option.autoSwitchElytra": "AutoSwitchElytra",
   "text.autoconfig.ranitils.option.autoSwitchElytra.@Tooltip": "Automatically switches elytra and chestplate\n\n§7swoop swop",

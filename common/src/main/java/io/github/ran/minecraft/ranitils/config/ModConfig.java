@@ -36,6 +36,9 @@ public class ModConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     public boolean verticalTP = false;
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 5)
+    public double verticalTPHorizontalDistance = 0.8;
 
     @ConfigEntry.Gui.Tooltip
     public boolean mineFree = false;
