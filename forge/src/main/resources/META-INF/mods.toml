@@ -11,10 +11,10 @@ authors = "Ran, CodeF53"
 description = '''
 A small utility mod for Ran (Not to be confused with Ran's utility library "Ranitils")
 
-§6Special thanks to these people:§e
+Special thanks to these people:
 CodeF53 (For helping me make mod)
 plusls (For creating OMMC)
-Luna (For creating Elytra Recast)§r§7
+Luna (For creating Elytra Recast)
 
 '''
 logoFile = "assets/${id}/icon.png"
