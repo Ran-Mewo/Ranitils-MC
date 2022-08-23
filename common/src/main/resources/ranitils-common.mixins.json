@@ -8,7 +8,9 @@
     "bowInstantKill.ReleaseBowMixin",
     "elytraRecast.BouncyBoiMixin",
     "mineFree.MineFreeMixin",
-    "roadrunner.FlatDigMixin"
+    "roadrunner.FlatDigMixin",
+    "noTrample.SendPacketMixin",
+    "noTrample.ServerboundMovePlayerPacketAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
