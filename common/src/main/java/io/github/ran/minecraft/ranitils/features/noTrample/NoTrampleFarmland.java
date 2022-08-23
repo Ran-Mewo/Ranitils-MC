@@ -7,7 +7,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class NoTrampleFarmland implements Eventerface {
@@ -29,7 +29,8 @@ public class NoTrampleFarmland implements Eventerface {
             if (cooldown > 1) cooldown = 0;
             if (cooldown == 0) {
                 BlockState blockState = checkBlockStates(player, level);
-                isOnFarmland = blockState.is(Blocks.FARMLAND);
+                Block block = blockState.getBlock();
+                isOnFarmland = (block instanceof FarmBlock || block instanceof CropBlock || block instanceof StemBlock || block instanceof AttachedStemBlock);
             }
             cooldown++;
         }
