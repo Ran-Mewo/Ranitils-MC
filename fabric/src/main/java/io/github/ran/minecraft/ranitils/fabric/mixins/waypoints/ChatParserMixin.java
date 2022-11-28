@@ -12,8 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 // Which is by plusls and is licensed under the GNU Lesser General Public License v3.0
 @Mixin(value = ChatComponent.class, priority = 998)
 public abstract class ChatParserMixin {
+    #if POST_MC_1_16_5
     @Inject(method = "addMessage(Lnet/minecraft/network/chat/Component;I)V", at = @At(value = "HEAD"))
     public void modifyMessage(Component message, int messageId, CallbackInfo ci) {
         Waypoint.parseWaypointText(message);
     }
+    #endif
 }

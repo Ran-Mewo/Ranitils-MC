@@ -9,6 +9,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Final;
@@ -43,10 +44,10 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
             return;
         }
         ItemStack chestItemStack = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (chestItemStack.is(Items.ELYTRA) || !AutoSwitchElytra.myCheckFallFlying(this)) {
+        if (#if PRE_MC_1_18_2 (!chestItemStack.isEmpty() && chestItemStack.getItem() instanceof ElytraItem) #else chestItemStack.is(Items.ELYTRA) #endif || !AutoSwitchElytra.myCheckFallFlying(this)) {
             return;
         }
-        AutoSwitchElytra.autoSwitch(AutoSwitchElytra.CHEST_SLOT_IDX, this.minecraft, (LocalPlayer) (Object) this, itemStack -> itemStack.is(Items.ELYTRA));
+        AutoSwitchElytra.autoSwitch(AutoSwitchElytra.CHEST_SLOT_IDX, this.minecraft, (LocalPlayer) (Object) this, itemStack -> #if PRE_MC_1_18_2 (!itemStack.isEmpty() && itemStack.getItem() instanceof ElytraItem) #else itemStack.is(Items.ELYTRA) #endif);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -56,7 +57,7 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
             return;
         }
         ItemStack chestItemStack = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (!chestItemStack.is(Items.ELYTRA) || !prevFallFlying || this.isFallFlying()) {
+        if (!(#if PRE_MC_1_18_2 (!chestItemStack.isEmpty() && chestItemStack.getItem() instanceof ElytraItem) #else chestItemStack.is(Items.ELYTRA) #endif) || !prevFallFlying || this.isFallFlying()) {
             prevFallFlying = this.isFallFlying();
             return;
         }

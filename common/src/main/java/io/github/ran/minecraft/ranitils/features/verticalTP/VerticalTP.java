@@ -67,7 +67,7 @@ public class VerticalTP implements Eventerface {
                 double horizontalDistance = ModConfig.getInstance().verticalTPHorizontalDistance;
                 if (Math.abs(player.getX() - blockPos.getX()) > horizontalDistance) return;
                 if (Math.abs(player.getZ() - blockPos.getZ()) > horizontalDistance) return;
-                if (Math.abs(player.getBlockY() - blockPos.getY()) < 2) return;
+                if (Math.abs(#if PRE_MC_1_18_2 net.minecraft.util.Mth.floor(player.getY() - 0.20000000298023224) #else player.getBlockY() #endif - blockPos.getY()) < 2) return;
 
                 if (blockState.use(level, player, InteractionHand.MAIN_HAND, blockHitResult) != InteractionResult.PASS) {
                     return;

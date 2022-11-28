@@ -11,10 +11,12 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 public class RanitilsMCFabric implements ClientModInitializer, Handler {
     @Override
     public void onInitializeClient() {
+        #if POST_MC_1_16_5
         Waypoint.register();
         keybinds.add(Waypoint.sendKey);
         keybinds.add(Waypoint.removeKey);
         events.add(new Waypoint(null, null));
+        #endif
 
         RanitilsMC.init(this);
     }

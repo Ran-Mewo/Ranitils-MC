@@ -47,6 +47,7 @@ public class ModConfig implements ConfigData {
     public boolean noTrample = true;
 
     public static void init() {
+        System.out.println("hewoalo");
         AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
     }
 

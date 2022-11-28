@@ -14,8 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelRenderer.class)
 public abstract class WaypointRendererMixin {
+    #if POST_MC_1_16_5
     @Inject(method = "renderLevel", at = @At("RETURN"))
     private void render(PoseStack poseStack, float partialTick, long finishNanoTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projectionMatrix, CallbackInfo ci) {
         Waypoint.renderWaypoint(poseStack, partialTick);
     }
+    #endif
 }

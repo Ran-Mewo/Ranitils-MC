@@ -10,7 +10,8 @@
     "mineFree.MineFreeMixin",
     "roadrunner.FlatDigMixin",
     "noTrample.SendPacketMixin",
-    "noTrample.ServerboundMovePlayerPacketAccessor"
+    "noTrample.ServerboundMovePlayerPacketAccessor",
+    "version.accessor.SlotAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

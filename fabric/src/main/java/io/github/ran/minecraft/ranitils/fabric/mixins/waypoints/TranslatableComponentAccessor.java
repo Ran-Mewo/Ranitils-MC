@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(TranslatableComponent.class)
 #endif
 public interface TranslatableComponentAccessor {
+    #if POST_MC_1_16_5
     @Accessor
     void setDecomposedWith(Language decomposedWith);
+    #endif
 }

@@ -17,10 +17,12 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(TextComponent.class)
 #endif
 public interface TextComponentAccessorMixin {
+    #if POST_MC_1_16_5
     @Accessor
     String getText();
 
     @Mutable
     @Accessor
     void setText(String text);
+    #endif
 }

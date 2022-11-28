@@ -12,6 +12,7 @@ import net.minecraft.util.Mth;
 // Some of the code is also from OMMC (https://github.com/plusls/oh-my-minecraft-client)
 // Which is by plusls and is licensed under the GNU Lesser General Public License v3.0
 public class WaypointRenderer {
+    #if POST_MC_1_16_5
     public static void renderBeam(PoseStack poseStack, float partialTick, float textureScale, long gameTime, int yOffset, int height, float[] colors, float beamRadius, float glowRadius) {
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, BeaconRenderer.BEAM_LOCATION);
@@ -78,4 +79,5 @@ public class WaypointRenderer {
     private static void addVertex(Matrix4f pose, VertexConsumer consumer, float red, float green, float blue, float alpha, int y, float x, float z, float u, float v) {
         consumer.vertex(pose, x, (float) y, z).uv(u, v).color(red, green, blue, alpha).endVertex();
     }
+    #endif
 }

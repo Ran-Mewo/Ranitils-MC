@@ -4,7 +4,11 @@ import io.github.ran.minecraft.ranitils.RanitilsMC;
 import io.github.ran.minecraft.ranitils.interfaces.Eventerface;
 import io.github.ran.minecraft.ranitils.interfaces.Handler;
 import net.minecraft.client.Minecraft;
+#if PRE_MC_1_18_2
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+#else
 import net.minecraftforge.client.ClientRegistry;
+#endif
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -17,9 +21,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(RanitilsMC.MOD_ID)
 public class RanitilsMCForge implements Handler {
     public RanitilsMCForge() {
-        // PreLaunchSetup.onPreLaunch();
+         PreLaunchSetup.onPreLaunch();
 
-        FMLJavaModLoadingContext.get().getModEventBus().register(this);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

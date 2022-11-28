@@ -40,10 +40,14 @@ public class NoTrampleFarmland implements Eventerface {
         final BlockPos blockPos = player.blockPosition();
         BlockState blockState = level.getBlockState(blockPos);
         if (blockState.isAir()) {
-            int y = player.getBlockY();
+            int y = #if PRE_MC_1_18_2 net.minecraft.util.Mth.floor(player.getY() - 0.20000000298023224) #else player.getBlockY() #endif;
             BlockPos currentPos;
             for (int i = 0; i < 8; i++) {
+                #if PRE_MC_1_18_2
+                blockState = level.getBlockState(currentPos = new BlockPos(blockPos.getX(), y - i, blockPos.getZ()));
+                #else
                 blockState = level.getBlockState(currentPos = blockPos.atY(y - i));
+                #endif
                 if (!blockState.isAir()) {
                     if (blockState.is(Blocks.WATER)) {
                         blockState = checkWaterSideBlockStates(currentPos, level);

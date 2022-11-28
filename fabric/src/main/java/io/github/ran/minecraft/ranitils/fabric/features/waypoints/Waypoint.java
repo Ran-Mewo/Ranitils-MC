@@ -57,6 +57,7 @@ import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 // Some of the code is from OMMC (https://github.com/plusls/oh-my-minecraft-client)
 // Which is by plusls and is licensed under the GNU Lesser General Public License v3.0
 public class Waypoint implements Eventerface {
+    #if POST_MC_1_16_5
     // Me when you need university level maths just for a simple waypoint
 
     private final BlockPos blockPos;
@@ -589,4 +590,15 @@ public class Waypoint implements Eventerface {
         poseStack.popPose();
         RenderSystem.enableTexture();
     }
+    #else
+    @Override
+    public void tick(Minecraft mc) {
+
+    }
+
+    @Override
+    public void disconnectWorld() {
+
+    }
+    #endif
 }
