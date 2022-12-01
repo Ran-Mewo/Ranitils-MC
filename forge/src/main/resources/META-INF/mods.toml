@@ -17,7 +17,7 @@ plusls (For creating OMMC)
 Luna (For creating Elytra Recast)
 
 '''
-logoFile = "assets/${id}/icon.png"
+logoFile = "icon.png"
 
 [[dependencies.${id}]]
 modId = "forge"
