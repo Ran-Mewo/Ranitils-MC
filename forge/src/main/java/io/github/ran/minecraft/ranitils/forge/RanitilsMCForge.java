@@ -11,7 +11,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 #else
-import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.ClientRegistry;
 #endif
 import net.minecraftforge.common.MinecraftForge;
@@ -38,7 +38,7 @@ public class RanitilsMCForge implements Handler {
         #if PRE_MC_1_18_2
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get());
         #else
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory, () -> (mc, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get());
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> (mc, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get());
         #endif
     }
 
