@@ -6,9 +6,11 @@ import io.github.ran.minecraft.ranitils.interfaces.Eventerface;
 import io.github.ran.minecraft.ranitils.interfaces.Handler;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.fml.ModLoadingContext;
 #if PRE_MC_1_18_2
 import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.client.ConfigGuiHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 #else
 import net.minecraftforge.client.ConfigGuiHandler;
@@ -21,6 +23,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import java.util.function.BiFunction;
 
 @Mod.EventBusSubscriber(modid = RanitilsMC.MOD_ID)
 @Mod(RanitilsMC.MOD_ID)
@@ -38,7 +42,7 @@ public class RanitilsMCForge implements Handler {
         #if PRE_MC_1_18_2
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get());
         #else
-        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> (mc, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get());
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((BiFunction<Minecraft, Screen, Screen>) (minecraft, screen) -> AutoConfig.getConfigScreen(ModConfig.class, screen).get()));
         #endif
     }
 
