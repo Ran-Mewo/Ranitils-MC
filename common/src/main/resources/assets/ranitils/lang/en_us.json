@@ -37,6 +37,9 @@
   "text.autoconfig.ranitils.option.mineFree": "MineFree",
   "text.autoconfig.ranitils.option.mineFree.@Tooltip": "Removes 6 tick mining speed delay and Lets you keep breaking blocks when you switch items.\n\n§7haha, mine go zoom now",
 
+  "text.autoconfig.ranitils.option.tridentExploit": "Riptide Trident Exploit",
+  "text.autoconfig.ranitils.option.tridentExploit.@Tooltip": "Removes Riptide's requirement for the player to be in Water/Rain and 10 tick charge time.\n\n§7Trident goes brrrrrrrrrrr\n§7I orginally discovered this exploit!\n§4Use at your own risk",
+
   "text.autoconfig.ranitils.options.noTrample": "NoTrampleFarmland",
   "text.autoconfig.ranitils.options.noTrample.@Tooltip": "Does not trample farmland when you jump on it\n\n§7boing boing\n§4Use at your own risk as it can get you banned"
 }

@@ -44,6 +44,9 @@ public class ModConfig implements ConfigData {
     public boolean mineFree = false;
 
     @ConfigEntry.Gui.Tooltip
+    public boolean tridentExploit = false;
+
+    @ConfigEntry.Gui.Tooltip
     public boolean noTrample = true;
 
     public static void init() {

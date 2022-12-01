@@ -9,6 +9,7 @@
     "elytraRecast.BouncyBoiMixin",
     "mineFree.MineFreeMixin",
     "roadrunner.FlatDigMixin",
+    "tridentExploit.TridentItemMixin",
     "noTrample.SendPacketMixin",
     "noTrample.ServerboundMovePlayerPacketAccessor",
     "version.accessor.SlotAccessor"
