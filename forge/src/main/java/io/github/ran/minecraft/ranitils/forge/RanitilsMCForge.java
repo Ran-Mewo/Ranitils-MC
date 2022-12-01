@@ -26,7 +26,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(RanitilsMC.MOD_ID)
 public class RanitilsMCForge implements Handler {
     public RanitilsMCForge() {
-         PreLaunchSetup.onPreLaunch();
+        PreLaunchSetup.onPreLaunch();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
