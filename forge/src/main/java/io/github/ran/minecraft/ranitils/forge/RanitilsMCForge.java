@@ -11,7 +11,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 #else
-import net.minecraftforge.client.ConfigScreenHandler
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.ClientRegistry;
 #endif
 import net.minecraftforge.common.MinecraftForge;
