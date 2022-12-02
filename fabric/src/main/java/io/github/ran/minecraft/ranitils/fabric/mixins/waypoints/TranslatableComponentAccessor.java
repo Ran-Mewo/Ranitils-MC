@@ -1,7 +1,7 @@
 package io.github.ran.minecraft.ranitils.fabric.mixins.waypoints;
 
 import net.minecraft.locale.Language;
-#if PRE_MC_1_19
+#if PRE_MC_1_19_2
 import net.minecraft.network.chat.TranslatableComponent;
 #else
 import net.minecraft.network.chat.contents.TranslatableContents;
