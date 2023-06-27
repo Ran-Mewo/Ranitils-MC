@@ -1,5 +1,6 @@
 package io.github.ran.minecraft.ranitils.fabric.features.waypoints;
 
+#if POST_MC_1_16_5 && PRE_MC_1_20_1
 import io.github.ran.minecraft.ranitils.config.ModConfig;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -13,8 +14,10 @@ import net.minecraft.world.inventory.InventoryMenu;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
+#endif
 
 public class WaypointResourceLoader {
+    #if POST_MC_1_16_5 && PRE_MC_1_20_1
     public static void register() {
         Cute.register();
         NoCute.register();
@@ -79,4 +82,5 @@ public class WaypointResourceLoader {
             targetIdSprite = atlas.apply(targetId);
         }
     }
+    #endif
 }

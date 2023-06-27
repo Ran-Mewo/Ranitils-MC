@@ -1,5 +1,8 @@
 package io.github.ran.minecraft.ranitils.fabric.features.waypoints;
 
+import io.github.ran.minecraft.ranitils.interfaces.Eventerface;
+import net.minecraft.client.Minecraft;
+#if POST_MC_1_16_5 && PRE_MC_1_20_1
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -7,7 +10,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import io.github.ran.minecraft.ranitils.config.ModConfig;
-import io.github.ran.minecraft.ranitils.interfaces.Eventerface;
 import io.github.ran.minecraft.ranitils.fabric.mixins.waypoints.TextComponentAccessorMixin;
 import io.github.ran.minecraft.ranitils.fabric.mixins.waypoints.TranslatableComponentAccessor;
 #if POST_MC_1_18_2
@@ -18,7 +20,6 @@ import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 #endif
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
@@ -53,11 +54,12 @@ import java.util.regex.Pattern;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
+#endif
 
 // Some of the code is from OMMC (https://github.com/plusls/oh-my-minecraft-client)
 // Which is by plusls and is licensed under the GNU Lesser General Public License v3.0
 public class Waypoint implements Eventerface {
-    #if POST_MC_1_16_5
+    #if POST_MC_1_16_5 && PRE_MC_1_20_1
     // Me when you need university level maths just for a simple waypoint
 
     private final BlockPos blockPos;
