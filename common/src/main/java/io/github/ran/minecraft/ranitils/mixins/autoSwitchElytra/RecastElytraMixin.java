@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Registry;
+#if PRE_1_20_1 import net.minecraft.core.Registry; #else import net.minecraft.core.registries.BuiltInRegistries; #endif
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
     boolean prevFallFlying = false;
 
     public RecastElytraMixin(ClientLevel world, GameProfile profile) {
-        #if POST_MC_1_18_2
+        #if MC_1_19_2
         super(world, profile, null);
         #else
         super(world, profile);
@@ -62,6 +62,10 @@ public abstract class RecastElytraMixin extends AbstractClientPlayer {
             return;
         }
         prevFallFlying = this.isFallFlying();
-        AutoSwitchElytra.autoSwitch(AutoSwitchElytra.CHEST_SLOT_IDX, this.minecraft, (LocalPlayer) (Object) this, itemStack -> Registry.ITEM.getKey(itemStack.getItem()).toString().contains("_chestplate"));
+        AutoSwitchElytra.autoSwitch(
+            AutoSwitchElytra.CHEST_SLOT_IDX,
+            this.minecraft,
+            (LocalPlayer) (Object) this,
+            itemStack -> #if PRE_MC_1_20_1 Registry #else BuiltInRegistries #endif.ITEM.getKey(itemStack.getItem()).toString().contains("_chestplate"));
     }
 }
