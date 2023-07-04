@@ -12,7 +12,8 @@
     "tridentExploit.TridentItemMixin",
     "noTrample.SendPacketMixin",
     "noTrample.ServerboundMovePlayerPacketAccessor",
-    "version.accessor.SlotAccessor"
+    "version.accessor.SlotAccessor",
+    "perfectHorse.PerfectHorse"
   ],
   "injectors": {
     "defaultRequire": 1

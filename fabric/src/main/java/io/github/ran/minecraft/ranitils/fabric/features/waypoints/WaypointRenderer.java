@@ -1,5 +1,6 @@
 package io.github.ran.minecraft.ranitils.fabric.features.waypoints;
 
+#if POST_MC_1_16_5 && PRE_MC_1_20_1
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
@@ -7,12 +8,13 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.util.Mth;
+#endif
 
 // Code from Minecraft's BeaconRenderer
 // Some of the code is also from OMMC (https://github.com/plusls/oh-my-minecraft-client)
 // Which is by plusls and is licensed under the GNU Lesser General Public License v3.0
 public class WaypointRenderer {
-    #if POST_MC_1_16_5
+    #if POST_MC_1_16_5 && PRE_MC_1_20_1
     public static void renderBeam(PoseStack poseStack, float partialTick, float textureScale, long gameTime, int yOffset, int height, float[] colors, float beamRadius, float glowRadius) {
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, BeaconRenderer.BEAM_LOCATION);

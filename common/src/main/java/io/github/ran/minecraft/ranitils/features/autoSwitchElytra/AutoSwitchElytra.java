@@ -17,7 +17,10 @@ public class AutoSwitchElytra {
     public static final int CHEST_SLOT_IDX = 6;
 
     public static boolean myCheckFallFlying(Player player) {
-        return !player.isOnGround() && !player.isFallFlying() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION);
+        return #if PRE_MC_1_20_1 !player.isOnGround() #else !player.onGround() #endif
+            && !player.isFallFlying()
+            && !player.isInWater()
+            && !player.hasEffect(MobEffects.LEVITATION);
     }
 
     public static void autoSwitch(int sourceSlot, Minecraft client, LocalPlayer clientPlayerEntity, Predicate<ItemStack> check) {
