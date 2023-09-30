@@ -38,20 +38,20 @@ subprojects { p ->
     def awFile = project(":common").file("src/main/resources/${rootProject.mod_id}.accesswidener")
 
     if (awFile.exists()) {
-        if (p != project(":forge")) {
+//        if (p != project(":forge")) {
             loom {
                 accessWidenerPath = awFile
             }
-        } else {
-            loom {
-                accessWidenerPath = awFile
-
-                forge {
-                    convertAccessWideners = true
-                    extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-                }
-            }
-        }
+//        } else {
+//            loom {
+//                accessWidenerPath = awFile
+//
+//                forge {
+//                    convertAccessWideners = true
+//                    extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+//                }
+//            }
+//        }
     }
 
     configurations {
@@ -107,17 +107,17 @@ subprojects { p ->
             }
         }
 
-        if (p == project(":forge")) {
-            if (rootProject.hasProperty("rubidium")) {
-                modImplementation "curse.maven:rubidium-574856:${rootProject.rubidium}"
-            }
-            if (rootProject.hasProperty("smoothboot_forge")) {
-                modImplementation "curse.maven:smooth-boot-reloaded-633412:${rootProject.smoothboot_forge}"
-            }
-            if (rootProject.hasProperty("starlight_forge")) {
-                modImplementation "curse.maven:starlight-forge-526854:${rootProject.starlight_forge}"
-            }
-        }
+//        if (p == project(":forge")) {
+//            if (rootProject.hasProperty("rubidium")) {
+//                modImplementation "curse.maven:rubidium-574856:${rootProject.rubidium}"
+//            }
+//            if (rootProject.hasProperty("smoothboot_forge")) {
+//                modImplementation "curse.maven:smooth-boot-reloaded-633412:${rootProject.smoothboot_forge}"
+//            }
+//            if (rootProject.hasProperty("starlight_forge")) {
+//                modImplementation "curse.maven:starlight-forge-526854:${rootProject.starlight_forge}"
+//            }
+//        }
     }
 
     processResources {

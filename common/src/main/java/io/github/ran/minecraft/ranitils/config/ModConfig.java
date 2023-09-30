@@ -52,6 +52,9 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean perfectHorse = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean bambooNoCollide = true;
+
     public static void init() {
         System.out.println("hewoalo");
         AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
