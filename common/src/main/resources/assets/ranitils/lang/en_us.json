@@ -44,5 +44,8 @@
   "text.autoconfig.ranitils.option.noTrample.@Tooltip": "Does not trample farmland when you jump on it\n\n§7boing boing\n§4Use at your own risk as it can get you banned",
 
   "text.autoconfig.ranitils.option.perfectHorse": "Perfect Horse",
-  "text.autoconfig.ranitils.option.perfectHorse.@Tooltip": "Any horse you ride has the stats of the best possible horse\n\n§7zoom boing\n§4Use at your own risk as it can get you banned"
+  "text.autoconfig.ranitils.option.perfectHorse.@Tooltip": "Any horse you ride has the stats of the best possible horse\n\n§7zoom boing\n§4Use at your own risk as it can get you banned",
+
+  "text.autoconfig.ranitils.option.nomTree": "NomTree",
+  "text.autoconfig.ranitils.option.nomTree.@Tooltip": "Leaves don't get in your way so you can nom the tree\n\n§7NomNomNomNomNom\n§4This will definitely get you banned from how sus it looks to other players"
 }

@@ -27,12 +27,14 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean roadRunner = false;
 
+    #if POST_MC_1_16_5 && PRE_MC_1_20_1
     @ConfigEntry.Gui.Tooltip
     public boolean waypointCoordinateConvert = true;
     @ConfigEntry.Gui.Tooltip
     public boolean noWaypointBeam = false;
     @ConfigEntry.Gui.Tooltip
     public boolean waypointSquareIcon = false;
+    #endif
 
     @ConfigEntry.Gui.Tooltip
     public boolean verticalTP = false;
@@ -41,7 +43,7 @@ public class ModConfig implements ConfigData {
     public double verticalTPHorizontalDistance = 0.8;
 
     @ConfigEntry.Gui.Tooltip
-    public boolean mineFree = false;
+    public boolean mineFree = true;
 
     @ConfigEntry.Gui.Tooltip
     public boolean tridentExploit = false;
@@ -51,6 +53,12 @@ public class ModConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     public boolean perfectHorse = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean nomTree = false;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean greed = false;
 
     public static void init() {
         System.out.println("hewoalo");

@@ -8,12 +8,14 @@
     "bowInstantKill.ReleaseBowMixin",
     "elytraRecast.BouncyBoiMixin",
     "mineFree.MineFreeMixin",
+    "nomTree.RemoveShapeMixin",
+    "noTrampleAndPickupRange.SendPacketMixin",
+    "noTrampleAndPickupRange.ServerboundMovePlayerPacketAccessor",
+    "perfectHorse.PerfectHorse",
+    "pickUpRange.TeleportToItemMixin",
     "roadrunner.FlatDigMixin",
     "tridentExploit.TridentItemMixin",
-    "noTrample.SendPacketMixin",
-    "noTrample.ServerboundMovePlayerPacketAccessor",
-    "version.accessor.SlotAccessor",
-    "perfectHorse.PerfectHorse"
+    "version.accessor.SlotAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package io.github.ran.minecraft.ranitils.mixins.noTrample;
+package io.github.ran.minecraft.ranitils.mixins.noTrampleAndPickupRange;
 
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import org.spongepowered.asm.mixin.Mixin;
